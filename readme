@@ -1,0 +1,61 @@
+
+        Readme for F2CBLASLAPACK
+        
+
+=============
+General Info:
+============
+
+This directory contains the BLAS and LAPACK routines converted to C
+using f2c and then manually cleaned up to NOT require any special f2c
+libraries.  This is provided for two reasons
+
+1) to allow PETSc to be completely built with full functionality
+   without a Fortran compiler
+2) to allow automatic differentiation tools for C to be used on all of
+   PETSc.
+
+Note:
+
+The F2CBLASLAPACK does not have complex functions. If these are
+required, the FBLASLAPACK package should be used.
+
+=========================
+Installation Instructions:
+=========================
+
+The libraries can be compiled 2 ways:
+
+1. Using PETSc makefiles (default)
+This way, the compiler and other information that is required to
+compile, and build the libraries is picked up from the PETSc
+makefiles. 
+
+For eg:, to build on solaris, one can use:
+make PETSC_ARCH=solaris PETSC_DIR=/home/user/petsc
+
+2. Specify all the makefile variables.
+
+This can be done by editing the makefile, specifying the compiler,
+options, and other required make variables. Also comment out the make
+include statement.
+
+To build the libraries, the following command can now be used:
+make 
+
+=================
+Additional Notes:
+=================
+
+If building the blas and lapack libraries for more than one
+architecture or for two different compilers, we recommend moving the
+libraries to a sub directory that indicates they are associated with a
+particular OS/compiler. For example after making the libraries for solaris,
+mkdir solaris
+mv libf2cblas.a solaris/
+mv libf2clapack.a solaris/
+
+On windows machines, cygnus tools are required to build the libraries,
+along with win32fe - the PETSc frontend to Microsoft/Intel/Borland
+compilers.  For additional info, check the PETSc installation
+instructions.
